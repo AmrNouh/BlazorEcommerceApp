@@ -1,0 +1,41 @@
+﻿@page "/Product/{id:int}"
+@inject IProductRepository productRepository
+@inject ICategoryRepository categoryRepository
+
+
+<h3>Edit</h3>
+@if (Product is not null)
+{
+    <EditForm Model="Product" OnSubmit="SaveProduct">
+        <div class="input-group-sm mb-2">
+            <label class="form-label">Name</label>
+            <InputText @bind-Value="Product.Name" class="form- form-control"></InputText>
+        </div>
+        <div class="input-group-sm mb-2">
+            <label class="form-label">Price</label>
+            <InputNumber @bind-Value="Product.Price" class="form-control"></InputNumber>
+        </div>
+        <div class="input-group-sm mb-2">
+            <label class="form-label">Image</label>
+            <InputText @bind-Value="Product.Image" class="form- form-control"></InputText>
+        </div>
+        <div class="input-group-sm mb-2">
+            <label class="form-label">Category</label>
+            <InputSelect @bind-Value="Product.CategoryId" class="form-select">
+                @foreach (var item in categoryRepository.GetAll())
+                   {
+                       <option value="@item.Id">@item.Name</option>
+                   }
+            </InputSelect>
+        </div>
+        <div class="input-group-sm mb-2">
+            <label class="form-label">Description</label>
+            <InputTextArea @bind-Value="Product.Description" class="form-text form-control"></InputTextArea>
+        </div>
+        <input type="submit" value="Update" class="btn btn-success mt-3 w-25 d-block mx-auto">
+    </EditForm>
+}
+else
+{
+    <p class="alert alert-danger" role="alert">Can't Load Product</p>
+}
