@@ -1,0 +1,1 @@
+BlazorAppDay02
