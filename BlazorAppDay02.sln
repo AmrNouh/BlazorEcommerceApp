@@ -5,9 +5,9 @@ VisualStudioVersion = 17.1.32319.34
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorAppDay02", "BlazorAppDay02\BlazorAppDay02.csproj", "{CA5D75A0-F89C-4137-AD2F-D852A27C55AB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WesiteWebApi", "WesiteWebApi\WesiteWebApi.csproj", "{40579F83-D95D-49F1-9645-085EF9B20950}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WesiteWebApi", "WesiteWebApi\WesiteWebApi.csproj", "{40579F83-D95D-49F1-9645-085EF9B20950}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Website.Shared", "Website.Shared\Website.Shared.csproj", "{16957439-29F4-44DF-BEF2-6B3A506816CD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Website.Shared", "Website.Shared\Website.Shared.csproj", "{16957439-29F4-44DF-BEF2-6B3A506816CD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
