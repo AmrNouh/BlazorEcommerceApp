@@ -11,5 +11,14 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
-
+builder.Services.AddHttpClient<ICategoryRepository, CategoryRepository>(
+    (sp, optionsHttpClient) =>
+         optionsHttpClient.BaseAddress =
+         new Uri(sp.GetRequiredService<IConfiguration>()["ProviderWebApiIp"])
+    );
+builder.Services.AddHttpClient<IProductRepository, ProductRepository>(
+    (sp, optionsHttpClient) =>
+    optionsHttpClient.BaseAddress =
+    new Uri(sp.GetRequiredService<IConfiguration>()["ProviderWebApiIp"])
+    );
 await builder.Build().RunAsync();

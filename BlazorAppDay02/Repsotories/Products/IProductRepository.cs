@@ -5,6 +5,6 @@ namespace BlazorAppDay02.Repositories.Products
 {
     public interface IProductRepository : IGeneralRepository<Product>
     {
-        Task<List<Product>> FilterByCategoryId(int categoryId);
+        Task<List<Product>> FilterByCategoryIdAsync(int categoryId);
     }
 }

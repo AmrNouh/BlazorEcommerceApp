@@ -1,37 +1,45 @@
-﻿using Website.Shared.Models;
+﻿using BlazorAppDay02.Repositories.Categories;
+using BlazorAppDay02.Repositories.Products;
+using Microsoft.AspNetCore.Components;
+using Website.Shared.Models;
 
 namespace BlazorAppDay02.Components
 {
     public partial class ViewAll
     {
-        //private readonly IProductRepository _productRepository;
-        //public readonly ICategoryRepository _categoryRepository;
-        public List<Category> Categories { get; set; }
-        public List<Product> Products { get; set; }
+        [Inject]
+        private IProductRepository? ProductRepository { get; set; }
+        [Inject]
+        private ICategoryRepository? CategoryRepository { get; set; }
+
+        public List<Category>? Categories { get; set; }
+        public List<Product>? Products { get; set; }
         public int CategoryId { get; set; }
 
-        //public ViewAll(IProductRepository productRepository, ICategoryRepository categoryRepository)
-        //{
-        //    _productRepository = productRepository;
-        //    _categoryRepository = categoryRepository;
-        //}
-
-        //protected override void OnInitialized()
-        //{
-        //    base.OnInitialized();
-        //    Categories = categoryRepository.GetAllAsync();
-        //    Products = productRepository.GetAll();
-        //}
-
-        public void FilterProducts()
+        protected async override Task OnInitializedAsync()
         {
-            if (CategoryId != 0)
+            if (CategoryRepository is not null && ProductRepository is not null)
             {
-                //Products = productRepository.FilterByCategoryId(CategoryId);
+                Categories = await CategoryRepository.GetAllAsync();
+                Products = await ProductRepository.GetAllAsync();
             }
-            else
+            await base.OnInitializedAsync();
+        }
+
+        public async void FilterProducts()
+        {
+            if (ProductRepository is not null)
             {
-                //Products = productRepository.GetAll();
+                if (CategoryId != 0)
+                {
+
+                    Products = await ProductRepository.FilterByCategoryIdAsync(CategoryId);
+
+                }
+                else
+                {
+                    Products = await ProductRepository.GetAllAsync();
+                }
             }
         }
     }

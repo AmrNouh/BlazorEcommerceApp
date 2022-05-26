@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using BlazorAppDay02.Repositories.Categories;
+using BlazorAppDay02.Repositories.Products;
+using Microsoft.AspNetCore.Components;
 using Website.Shared.Models;
 
 namespace BlazorAppDay02.Components
@@ -9,10 +11,15 @@ namespace BlazorAppDay02.Components
         public int Id { get; set; }
         public Product? Product { get; set; }
 
-        //protected override void OnInitialized()
-        //{
-        //    base.OnInitialized();
-        //    this.Product = productRepository.GetById(Id);
-        //}
+        [Inject]
+        private IProductRepository? ProductRepository { get; set; }
+        [Inject]
+        private ICategoryRepository? CategoryRepository { get; set; }
+
+        protected override async Task OnInitializedAsync()
+        {
+            this.Product = await ProductRepository.GetByIdAsync(Id);
+            await base.OnInitializedAsync();
+        }
     }
 }

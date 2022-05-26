@@ -1,6 +1,4 @@
 ﻿@page "/Products"
-@inject IProductRepository productRepository
-@inject ICategoryRepository categoryRepository
 
 
 <h3>Products</h3>
@@ -38,7 +36,7 @@ else
                         <div class="d-flex flex-row">
                             <div class="ratings mr-2"><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i></div><span>310</span>
                         </div>
-                        <div class="mt-1 mb-1 spec-1"><span class="dot"></span><span>@categoryRepository.GetById(product.CategoryId).Name</span></div>
+                        <div class="mt-1 mb-1 spec-1"><span class="dot"></span><span>CategoryName</span></div>
                         <p class="text-justify text-truncate para mb-0">@product.Description<br><br></p>
                     </div>
                     <div class="align-items-center align-content-center col-md-3 border-left mt-1">

@@ -8,9 +8,9 @@ namespace Website.Shared.Models
         public int Id { get; set; }
 
         [Required(ErrorMessage = "Please Enter Category Name")]
-        [Column(TypeName ="nvarchar(50)")]
+        [Column(TypeName = "nvarchar(50)")]
         public string? Name { get; set; }
 
-        public List<Product>? Products { get; set; } = new List<Product>(); 
+        public List<Product>? Products { get; set; } = new List<Product>();
     }
 }

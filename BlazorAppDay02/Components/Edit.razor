@@ -1,7 +1,4 @@
 ﻿@page "/Product/{id:int}"
-@inject IProductRepository productRepository
-@inject ICategoryRepository categoryRepository
-
 
 <h3>Edit</h3>
 @if (Product is not null)
@@ -22,7 +19,7 @@
         <div class="input-group-sm mb-2">
             <label class="form-label">Category</label>
             <InputSelect @bind-Value="Product.CategoryId" class="form-select">
-                @foreach (var item in categoryRepository.GetAll())
+                @foreach (var item in Categories)
                    {
                        <option value="@item.Id">@item.Name</option>
                    }
