@@ -5,17 +5,19 @@
         <div class="col-md-8 cart">
             <div class="title">
                 <div class="row">
-                    <div class="col"><h4><b>Shopping Cart</b></h4></div>
-                    <div class="col align-self-center text-right text-muted">3 items</div>
+                    <div class="col">
+                        <h4><b>Shopping Cart</b></h4>
+                    </div>
+                    <div class="col align-self-center text-end text-muted">3 items</div>
                 </div>
             </div>
-            
-            @*adding cart item here*@
+
+            <ShoppingCartItem></ShoppingCartItem>
 
             <div class="back-to-shop"><a href="#">&leftarrow;</a><span class="text-muted">Back to shop</span></div>
         </div>
 
-        @*adding summary here*@
+        <ShoppingCartSummary></ShoppingCartSummary>
 
     </div>
 </div>

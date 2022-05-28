@@ -18,7 +18,10 @@ namespace BlazorAppDay02.Components
 
         protected override async Task OnInitializedAsync()
         {
-            this.Product = await ProductRepository.GetByIdAsync(Id);
+            if (ProductRepository is not null)
+            {
+                this.Product = await ProductRepository.GetByIdAsync(Id);
+            }
             await base.OnInitializedAsync();
         }
     }
