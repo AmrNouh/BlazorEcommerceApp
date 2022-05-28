@@ -1,6 +1,6 @@
 ﻿@page "/ShoppingCart"
 
-<div class="card">
+<div class="card mb-4">
     <div class="row">
         <div class="col-md-8 cart">
             <div class="title">
@@ -8,16 +8,20 @@
                     <div class="col">
                         <h4><b>Shopping Cart</b></h4>
                     </div>
-                    <div class="col align-self-center text-end text-muted">3 items</div>
+                    <div class="col align-self-center text-end text-muted fw-bold" style="font-size: 0.8rem;font-family: sans-serif;">3 items</div>
                 </div>
             </div>
 
             <ShoppingCartItem></ShoppingCartItem>
+            <ShoppingCartItem></ShoppingCartItem>
+            <ShoppingCartItem></ShoppingCartItem>
 
-            <div class="back-to-shop"><a href="#">&leftarrow;</a><span class="text-muted">Back to shop</span></div>
+            <div class="back-to-shop d-flex align-content-center align-items-center">
+                <a class="text-black text-decoration-none" href="#">&leftarrow;</a>
+                <span class="text-muted">Back to shop</span>
+            </div>
         </div>
 
         <ShoppingCartSummary></ShoppingCartSummary>
-
     </div>
 </div>
