@@ -1,19 +1,26 @@
-﻿<div class="col-md-4">
-    <div><h5><b>Summary</b></h5></div>
-    <hr>
-    <div class="d-flex">
-        <div class="col"><p>ITEMS 3</p></div>
-        <div class="col text-end"><p>&pound; 132.00</p></div>
+﻿<div class="col">
+    <div class="row py-3 border-bottom">
+        <h5><b>Summary</b></h5>
     </div>
-    <form>
-        <p>SHIPPING</p>
-        <select><option class="text-muted">Standard-Delivery- &pound; 5.00</option></select>
-        <p>GIVE CODE</p>
-        <input id="code" placeholder="Enter your code">
+    <div class="d-flex mt-3">
+        <div class="col"><p>@ItemCount ITEMS</p></div>
+        <div class="col text-end"><p>&pound; @ItemsPrice</p></div>
+    </div>
+    <form class="border-bottom pb-3">
+        <div class="mb-3">
+            <label>SHIPPING</label>
+            <select class="p-1">
+                <option class="text-muted">Standard-Delivery- &pound; 5.00</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label>GIVE CODE</label>
+            <input class="p-1" id="code" placeholder="Enter your code">
+        </div>
     </form>
     <div class="d-flex" style="border-top: 1px solid rgba(0,0,0,.1); padding: 2vh 0;">
         <div class="col"><p>TOTAL PRICE</p></div>
-        <div class="col text-end"><p>&pound; 137.00</p></div>
+        <div class="col text-end"><p>&pound; @(ItemsPrice > 0 ? ItemsPrice + 5 : 0)</p></div>
     </div>
-    <button class="btn">CHECKOUT</button>
+    <button class="btn mb-2 py-2">CHECKOUT</button>
 </div>

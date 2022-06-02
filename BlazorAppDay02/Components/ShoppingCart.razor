@@ -1,27 +1,46 @@
 ﻿@page "/ShoppingCart"
 
-<div class="card mb-4">
-    <div class="row">
-        <div class="col-md-8 cart">
-            <div class="title">
+
+<div class="container-fluid">
+    <div class="row h-100">
+        <div class="col-md-8 col-sm-12" style="overflow-y:auto;overflow-x:hidden;">
+            <div class="title p-3">
                 <div class="row">
                     <div class="col">
-                        <h4><b>Shopping Cart</b></h4>
+                        <h4 class="text-light"><b>Shopping Cart</b></h4>
                     </div>
-                    <div class="col align-self-center text-end text-muted fw-bold" style="font-size: 0.8rem;font-family: sans-serif;">3 items</div>
+                    <div class="col d-flex justify-content-end align-content-center align-items-center">
+                        <span class="text-end text-white-50 fw-bold" style="font-size: 1rem;">
+                            @if (CartItems is not null)
+                            {
+                                <strong>@CartItems.Count</strong>
+                            }
+                            else
+                            {
+                                <strong>0</strong>
+                            }
+                            items
+                        </span>
+                    </div>
                 </div>
             </div>
+            <div class="d-flex flex-column gap-1 px-3 mb-3">
+                @if (CartItems is not null)
+                {
+                    @foreach (var item in CartItems)
+                    {
+                        <ShoppingCartItem UpdateCartItems="cartitemChangeHandler" Item="@item"></ShoppingCartItem>
+                    }
+                }
+                else
+                {
+                    <div class="alert alert-info"><span class="d-block fw-bolder">Shopping Cart is Empty Go to Shopping</span><a class="btn btn-success float-end" href="products">Shop Now</a></div>
+                }
 
-            <ShoppingCartItem></ShoppingCartItem>
-            <ShoppingCartItem></ShoppingCartItem>
-            <ShoppingCartItem></ShoppingCartItem>
-
-            <div class="back-to-shop d-flex align-content-center align-items-center">
-                <a class="text-black text-decoration-none" href="#">&leftarrow;</a>
-                <span class="text-muted">Back to shop</span>
             </div>
         </div>
-
-        <ShoppingCartSummary></ShoppingCartSummary>
+        <div class="col-md-4 col-sm-12 bg-light">
+            <ShoppingCartSummary ItemsPrice="@GetItemsTotalPrice()" ItemCount="@ItemCount"></ShoppingCartSummary>
+        </div>
     </div>
 </div>

@@ -1,20 +1,24 @@
 ﻿@page "/Product/{id:int}"
 
-<h3>Edit</h3>
 @if (Product is not null)
 {
-    <EditForm Model="Product" OnSubmit="SaveProduct">
+    <EditForm Model="Product" OnInvalidSubmit="UpdateProduct" class="card bg-white w-75 m-auto">
+        <DataAnnotationsValidator></DataAnnotationsValidator>
+        <ValidationSummary></ValidationSummary>
         <div class="input-group-sm mb-2">
             <label class="form-label">Name</label>
             <InputText @bind-Value="Product.Name" class="form- form-control"></InputText>
+            <ValidationMessage For="()=>Product.Name" class="text-danger"></ValidationMessage>
         </div>
         <div class="input-group-sm mb-2">
             <label class="form-label">Price</label>
             <InputNumber @bind-Value="Product.Price" class="form-control"></InputNumber>
+            <ValidationMessage For="()=>Product.Price" class="text-danger"></ValidationMessage>
         </div>
         <div class="input-group-sm mb-2">
             <label class="form-label">Image</label>
             <InputText @bind-Value="Product.Image" class="form- form-control"></InputText>
+            <ValidationMessage For="()=>Product.Image" class="text-danger"></ValidationMessage>
         </div>
         <div class="input-group-sm mb-2">
             <label class="form-label">Category</label>
@@ -24,6 +28,7 @@
                        <option value="@item.Id">@item.Name</option>
                    }
             </InputSelect>
+            <ValidationMessage For="()=>Product.CategoryId" class="text-danger"></ValidationMessage>
         </div>
         <div class="input-group-sm mb-2">
             <label class="form-label">Description</label>

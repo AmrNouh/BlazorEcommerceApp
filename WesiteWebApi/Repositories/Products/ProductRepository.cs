@@ -24,11 +24,11 @@ namespace WesiteWebApi.Repositories.Products
             return 0;
         }
 
-        public async Task<List<Product>> FilterByCategoryIdAsync(int categoryId) => await _websiteDbContext.Products.Where(x => x.CategoryId == categoryId).ToListAsync();
+        public async Task<List<Product>> FilterByCategoryIdAsync(int categoryId) => await _websiteDbContext.Products.Include<Product>("Category").Where(x => x.CategoryId == categoryId).ToListAsync();
 
-        public async Task<List<Product>> GetAllAsync() => await _websiteDbContext.Products.ToListAsync();
+        public async Task<List<Product>> GetAllAsync() => await _websiteDbContext.Products.Include<Product>("Category").ToListAsync();
 
-        public async Task<Product> GetByIdAsync(int id) => await _websiteDbContext.Products.FirstOrDefaultAsync(p => p.Id == id);
+        public async Task<Product> GetByIdAsync(int id) => await _websiteDbContext.Products.Include<Product>("Category").FirstOrDefaultAsync(p => p.Id == id);
 
         public async Task<int> InsertAsync(Product entity)
         {

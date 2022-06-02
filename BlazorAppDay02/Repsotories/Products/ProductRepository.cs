@@ -1,4 +1,5 @@
 ﻿using System.Net.Http.Json;
+using Website.Shared.DTOs;
 using Website.Shared.Models;
 
 namespace BlazorAppDay02.Repositories.Products
@@ -19,11 +20,11 @@ namespace BlazorAppDay02.Repositories.Products
             return httpResponse.IsSuccessStatusCode ? 1 : -1;
         }
 
-        public async Task<List<Product>> FilterByCategoryIdAsync(int categoryId) => await _httpClient.GetFromJsonAsync<List<Product>>($"{filterProductBaseUrl}/{categoryId}");
+        public async Task<List<ProductDto>> FilterByCategoryIdAsync(int categoryId) => await _httpClient.GetFromJsonAsync<List<ProductDto>>($"{filterProductBaseUrl}/{categoryId}");
 
-        public async Task<List<Product>> GetAllAsync() => await _httpClient.GetFromJsonAsync<List<Product>>(productBaseUrl);
+        public async Task<List<ProductDto>> GetAllAsync() => await _httpClient.GetFromJsonAsync<List<ProductDto>>(productBaseUrl);
 
-        public async Task<Product> GetByIdAsync(int id) => await _httpClient.GetFromJsonAsync<Product>($"{productBaseUrl}/{id}");
+        public async Task<ProductDto> GetByIdAsync(int id) => await _httpClient.GetFromJsonAsync<ProductDto>($"{productBaseUrl}/{id}");
 
         public async Task<int> InsertAsync(Product entity)
         {

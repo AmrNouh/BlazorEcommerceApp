@@ -1,11 +1,7 @@
-﻿body {
-}
-
-.summary {
+﻿.summary {
     background-color: #ddd;
     border-top-right-radius: 1rem;
     border-bottom-right-radius: 1rem;
-    padding: 4vh;
     color: rgb(65, 65, 65);
 }
 
@@ -16,36 +12,15 @@
     }
 }
 
-.summary .col-2 {
-    padding: 0;
-}
-
-.summary .col-10 {
-    padding: 0;
-}
-
-h5 {
-    margin-top: 4vh;
-}
-
-hr {
-    margin-top: 1.25rem;
-}
-
-form {
-    padding: 2vh 0;
-}
-
 p {
     color: rgb(65 65 65);
-    font-size: 0.8rem;
+    font-size: 1rem;
     font-weight: bold;
     font-family: sans-serif;
 }
+
 select {
     border: 1px solid rgba(0, 0, 0, 0.137);
-    padding: 1.5vh 1vh;
-    margin-bottom: 4vh;
     outline: none;
     width: 100%;
     background-color: rgb(247, 247, 247);
@@ -53,8 +28,6 @@ select {
 
 input {
     border: 1px solid rgba(0, 0, 0, 0.137);
-    padding: 1vh;
-    margin-bottom: 4vh;
     outline: none;
     width: 100%;
     background-color: rgb(247, 247, 247);
@@ -70,8 +43,6 @@ input {
     color: white;
     width: 100%;
     font-size: 0.7rem;
-    margin-top: 4vh;
-    padding: 1vh;
     border-radius: 0;
 }
 

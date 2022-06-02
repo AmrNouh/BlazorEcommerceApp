@@ -1,0 +1,43 @@
+﻿@page "/CreateNewProduct"
+
+@if (Product is not null)
+{
+    <EditForm Model="Product" class="card bg-white w-75 m-auto">
+        <DataAnnotationsValidator></DataAnnotationsValidator>
+        <ValidationSummary></ValidationSummary>
+        <div class="input-group-sm mb-2">
+            <label class="form-label">Name</label>
+            <InputText @bind-Value="Product.Name" class="form- form-control"></InputText>
+            <ValidationMessage For="()=>Product.Name" class="text-danger"></ValidationMessage>
+        </div>
+        <div class="input-group-sm mb-2">
+            <label class="form-label">Price</label>
+            <InputNumber @bind-Value="Product.Price" class="form-control"></InputNumber>
+            <ValidationMessage For="()=>Product.Price" class="text-danger"></ValidationMessage>
+        </div>
+        <div class="input-group-sm mb-2">
+            <label class="form-label">Image</label>
+            <InputText @bind-Value="Product.Image" class="form- form-control"></InputText>
+            <ValidationMessage For="()=>Product.Image" class="text-danger"></ValidationMessage>
+        </div>
+        <div class="input-group-sm mb-2">
+            <label class="form-label">Category</label>
+            <InputSelect @bind-Value="Product.CategoryId" class="form-select">
+                @foreach (var item in Categories)
+                   {
+                       <option value="@item.Id">@item.Name</option>
+                   }
+            </InputSelect>
+            <ValidationMessage For="()=>Product.CategoryId" class="text-danger"></ValidationMessage>
+        </div>
+        <div class="input-group-sm mb-2">
+            <label class="form-label">Description</label>
+            <InputTextArea @bind-Value="Product.Description" class="form-text form-control"></InputTextArea>
+        </div>
+        <input type="submit" value="Save" class="btn btn-success mt-3 w-25 d-block mx-auto">
+    </EditForm>
+}
+else
+{
+    <p class="alert alert-danger" role="alert">Can't Load Product</p>
+}

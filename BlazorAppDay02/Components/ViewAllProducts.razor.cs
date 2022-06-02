@@ -1,26 +1,22 @@
-﻿using BlazorAppDay02.Repositories.Categories;
-using BlazorAppDay02.Repositories.Products;
+﻿using BlazorAppDay02.Repositories.Products;
 using Microsoft.AspNetCore.Components;
+using Website.Shared.DTOs;
 using Website.Shared.Models;
 
 namespace BlazorAppDay02.Components
 {
-    public partial class ViewAll
+    public partial class ViewAllProducts
     {
         [Inject]
         private IProductRepository? ProductRepository { get; set; }
-        [Inject]
-        private ICategoryRepository? CategoryRepository { get; set; }
 
-        public List<Category>? Categories { get; set; }
-        public List<Product>? Products { get; set; }
+        public List<ProductDto>? Products { get; set; }
         public int CategoryId { get; set; }
 
         protected async override Task OnInitializedAsync()
         {
-            if (CategoryRepository is not null && ProductRepository is not null)
+            if (ProductRepository is not null)
             {
-                Categories = await CategoryRepository.GetAllAsync();
                 Products = await ProductRepository.GetAllAsync();
             }
             await base.OnInitializedAsync();
@@ -41,6 +37,11 @@ namespace BlazorAppDay02.Components
                     Products = await ProductRepository.GetAllAsync();
                 }
             }
+        }
+
+        private async void ProductDeletedHandler(int productId)
+        {
+            Products = await ProductRepository.GetAllAsync();
         }
     }
 }

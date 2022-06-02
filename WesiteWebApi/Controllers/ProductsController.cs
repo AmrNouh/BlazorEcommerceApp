@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Website.Shared.DTOs;
 using Website.Shared.Models;
 using WesiteWebApi.Repositories.Products;
 
@@ -17,15 +19,24 @@ namespace WesiteWebApi.Controllers
 
         // GET: api/Products
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
+        public async Task<ActionResult<IEnumerable<ProductDto>>> GetProducts()
         {
             List<Product>? products = await _productRepository.GetAllAsync();
-            return products is null ? NotFound() : products;
+            List<ProductDto> productsList = new List<ProductDto>();
+            if (products is null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                productsList = products.Select(x => new ProductDto { Id = x.Id,Name = x.Name, Description = x.Description, Price = x.Price, CategoryId = x.CategoryId, Image= x.Image, CategoryName = x.Category.Name}).ToList();
+            }
+            return productsList;
         }
 
         // GET: api/Products/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Product>> GetProduct(int id)
+        public async Task<ActionResult<ProductDto>> GetProduct(int id)
         {
             Product? product = await _productRepository.GetByIdAsync(id);
 
@@ -34,11 +45,12 @@ namespace WesiteWebApi.Controllers
                 return NotFound();
             }
 
-            return product;
+            return new ProductDto { Id = product.Id, Name = product.Name, Description = product.Description, Price = product.Price, Image = product.Image, CategoryId = product.CategoryId, CategoryName = product.Category.Name};
         }
 
         // PUT: api/Products/5
         [HttpPut("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> PutProduct(int id, Product product)
         {
             if (ModelState.IsValid)
@@ -67,6 +79,7 @@ namespace WesiteWebApi.Controllers
 
         // POST: api/Products
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<Product>> PostProduct(Product product)
         {
             if (ModelState.IsValid)
@@ -87,6 +100,7 @@ namespace WesiteWebApi.Controllers
 
         // DELETE: api/Products/5
         [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteProduct(int id)
         {
             int affectedRow = await _productRepository.DeleteAsync(id);

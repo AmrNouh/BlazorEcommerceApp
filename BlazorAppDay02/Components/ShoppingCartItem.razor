@@ -1,21 +1,21 @@
 ﻿
-<div class="row border-top" style="height: 106px;">
+<div class="row bg-white" style="border-radius:0.25rem;">
     <div class="row main align-items-center">
         <div class="col-2">
-            <img class="img-fluid" src="https://i.imgur.com/1GrakTl.jpg">
+            <img class="img-fluid" src="@Item.Image">
         </div>
         <div class="col">
-            <div class="row text-muted">Shirt</div>
-            <div class="row">Cotton T-shirt</div>
+            <div class="row text-muted">@Item.Category</div>
+            <div class="row">@Item.Name</div>
         </div>
-        <div class="col align-content-center align-items-center">
-            <a href="#" class="text-decoration-none text-black fw-bold">-</a>
-            <a href="#" class="text-decoration-none text-black border fw-bold p-1" style="font-size: 0.8rem;font-family: sans-serif;">1</a>
-            <a href="#" class="text-decoration-none text-black fw-bold">+</a>
+        <div class="col align-baseline">
+            <button @onclick="DecreaseOrederCount" class="text-decoration-none text-black fw-bold">-</button>
+            <span href="#" class="text-decoration-none text-black border fw-bold p-1" style="font-size: 0.8rem;font-family: sans-serif;">@Item.OrderCount</span>
+            <button @onclick="IncreaseOrderCount" class="text-decoration-none text-black fw-bold">+</button>
         </div>
         <div class="col">
-            <span class="fw-normal" style="font-size:inherit.8rem;">&pound; 44.00</span> 
-            <span class="close float-end text-black-50" style="font-size:inherit.8rem;">&#10005;</span>
+            <span class="fw-normal" style="font-size:inherit.8rem;">&pound; @Item.Price</span> 
+            <button @onclick="DelecteItemFromCart" class="close float-end text-black-50" style="font-size:inherit.8rem;">&#10005;</button>
         </div>
     </div>
 </div>

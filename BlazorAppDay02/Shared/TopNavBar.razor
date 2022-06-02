@@ -1,0 +1,78 @@
+﻿@using Website.Shared.Models
+@inject ILocalStorageService LocalStorageService
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand text-warning" href="#">E-Commercey App</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse justify-content-between" id="navbarTogglerDemo02">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <li class="nav-item active">
+                    <a class="nav-link" href="Products">Home <span class="sr-only">(current)</span></a>
+                </li>
+                @if (user is not null && user?.Role?.ToLower() == "admin")
+                {
+                    <li class="nav-item">
+                        <a class="nav-link" href="CreateNewProduct">Add Product</a>
+                    </li>
+                }
+            </ul>
+
+            <ul class="navbar-nav align-items-center align-content-center">
+                @if (user is null)
+                {
+                    <li class="nav-item">
+                        <a class="nav-link align-bottom" href="login">
+                            <span>Login</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="register">
+                            <span>Register</span>
+                        </a>
+                    </li>
+                }
+                else
+                {
+                    <li class="nav-item">
+                        <span>Welcome, @user.Username</span>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="logout">
+                            <span>Logout</span>
+                        </a>
+                    </li>
+                }
+                <li class="nav-item">
+                    <a class="nav-link" href="shoppingCart">
+                        <span class="oi oi-cart p-2" aria-hidden="true">
+                            <span class="position-absolute badge bg-primary rounded-pill top-0">@Count</span>
+                        </span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+@code {
+
+    private User user { get; set; }
+    private int Count { get; set; }
+
+    public TopNavBar()
+    {
+        this.user = new();
+    }
+
+
+    protected async override Task OnInitializedAsync()
+    {
+        user = await LocalStorageService.GetItem<User>("user");
+        var cart = await LocalStorageService.GetItem<List<CartProduct>>("cart");
+        Count = cart is null ? 0 : cart.Count;
+        await base.OnInitializedAsync();
+    }
+}
