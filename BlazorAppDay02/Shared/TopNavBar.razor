@@ -1,7 +1,8 @@
 ﻿@using Website.Shared.Models
 @inject ILocalStorageService LocalStorageService
+@inject IAccountRepository AccountService
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="height:60px">
     <div class="container-fluid">
         <a class="navbar-brand text-warning" href="#">E-Commercey App</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
@@ -12,7 +13,7 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="Products">Home <span class="sr-only">(current)</span></a>
                 </li>
-                @if (user is not null && user?.Role?.ToLower() == "admin")
+                @if (User != null)
                 {
                     <li class="nav-item">
                         <a class="nav-link" href="CreateNewProduct">Add Product</a>
@@ -21,10 +22,10 @@
             </ul>
 
             <ul class="navbar-nav align-items-center align-content-center">
-                @if (user is null)
+                @if (User == null)
                 {
                     <li class="nav-item">
-                        <a class="nav-link align-bottom" href="login">
+                        <a class="nav-link align-bottom d-inline-block" href="login">
                             <span>Login</span>
                         </a>
                     </li>
@@ -37,7 +38,10 @@
                 else
                 {
                     <li class="nav-item">
-                        <span>Welcome, @user.Username</span>
+                        <span class="mx-4">
+                            <span class="text-warning d-inline mx-1">Welcome,</span>
+                            <p class="text-white d-inline">@User.Username</p>
+                        </span>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="logout">
@@ -59,18 +63,13 @@
 
 @code {
 
-    private User user { get; set; }
+    private User User { get; set; }
+
     private int Count { get; set; }
-
-    public TopNavBar()
-    {
-        this.user = new();
-    }
-
 
     protected async override Task OnInitializedAsync()
     {
-        user = await LocalStorageService.GetItem<User>("user");
+        User = AccountService.User;
         var cart = await LocalStorageService.GetItem<List<CartProduct>>("cart");
         Count = cart is null ? 0 : cart.Count;
         await base.OnInitializedAsync();

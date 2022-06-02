@@ -18,11 +18,5 @@ namespace BlazorAppDay02.Pages
 
         [Inject]
         public NavigationManager NavigationManager { get; set; }
-
-        private async void OnValidSubmit()
-        {
-            AlertService.Clear();
-            loading = true;
-        }
     }
 }

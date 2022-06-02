@@ -2,7 +2,7 @@
 
 @if (Product is not null)
 {
-    <div class="col-lg-8 col-md-10 col-sm-11 bg-white border-0 align-self-center mx-auto" style="border-radius: 0.25rem;height:fit-content">
+    <div class="col-lg-8 col-md-10 col-sm-11 bg-white border-0 align-self-center mx-auto mt-4" style="border-radius: 0.25rem;">
         <div class="row">
             <div class="preview col-md-6 col-sm-12 p-4">
 
@@ -49,3 +49,48 @@ else
 {
     <p class="alert alert-danger h-25 w-75" role="alert">Can't Load Products Details</p>
 }
+
+@code {
+    private async Task AddToCart()
+    {
+        var cart = await LocalStorageService.GetItem<List<CartProduct>>("cart");
+        if (cart == null)
+        {
+            cart = new List<CartProduct>();
+            cart.Add(new CartProduct
+                {
+                    Id = Product.Id,
+                    Name = Product.Name,
+                    OrderCount = 1,
+                    Price = Product.Price,
+                    Image = Product.Image,
+                    Category = Product.CategoryName
+                });
+        }
+        else
+        {
+            var isExists = cart.Select(x => x.Id).Contains(Product.Id);
+            if (isExists)
+            {
+                var product = cart.FirstOrDefault(x => x.Id == Product.Id);
+                product.OrderCount++;
+
+            }
+            else
+            {
+                cart.Add(new CartProduct
+                    {
+                        Id = Product.Id,
+                        Name = Product.Name,
+                        OrderCount = 1,
+                        Price = Product.Price,
+                        Image = Product.Image,
+                        Category = Product.CategoryName
+                    });
+            }
+        }
+        StateHasChanged();
+        await LocalStorageService.SetItem<List<CartProduct>>("cart", cart);
+        NavigationManager.NavigateTo("ShoppingCart");
+    }
+    }

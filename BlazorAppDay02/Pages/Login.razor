@@ -1,9 +1,11 @@
 ﻿@page "/Login"
+@using Website.Shared.Models
 
 <section class="gradient-custom">
     <div class="container py-5 h-100">
         <div class="row d-flex justify-content-center align-items-center">
             <div class="col-12 col-md-8 col-lg-6 col-xl-5 ">
+                <div class="alert alert-danger @ErrorMessage()">User Name or Password incorrect</div>
                 <div class="card bg-dark text-white my-0 py-0" style="border-radius: 1rem;">
                     <div class="card-body p-4 text-center">
 
@@ -53,3 +55,38 @@
         </div>
     </div>
 </section>
+
+@code {
+    [Parameter]
+    public EventCallback<User> OnUserLogin { get; set; }
+
+    private bool hasErrors = false;
+
+    private async void OnValidSubmit()
+    {
+        AlertService.Clear();
+        loading = true;
+        try
+        {
+            await AccountService.Login(model);
+            if (AccountService.User is null)
+            {
+                hasErrors = true;
+                StateHasChanged();
+                NavigationManager.NavigateTo("login",true);
+            }
+            await OnUserLogin.InvokeAsync(AccountService.User);
+        }
+        catch (Exception ex)
+        {
+            AlertService.Error(ex.Message);
+            loading = false;
+            StateHasChanged();
+        }
+    }
+
+    private string ErrorMessage()
+    {
+        return hasErrors ? "d-block" : "d-none";
+    }
+}

@@ -1,5 +1,5 @@
 ﻿
-<div class="d-flex flex-column align-items-center justify-content-start align-content-start">
+<div class="d-flex flex-column my-3 justify-content-start align-content-start">
     <div class="section01 mt-3">
         <p class="fw-bold text-dark">Categories</p>
         @if (Categories is not null)
@@ -8,7 +8,7 @@
             {
                 <div class="form-check">
                     <input type="checkbox" class="form-check-input text-black-50" id="@category.Name" value="">
-                    <label class="form-check-label text-black-50" style="font-size: 0.9rem" for="@category.Name">
+                    <label class="form-check-label text-black" style="font-size: 0.9rem" for="@category.Name">
                         @category.Name
                     </label>
                 </div>

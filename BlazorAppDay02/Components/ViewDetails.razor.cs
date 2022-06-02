@@ -15,7 +15,7 @@ namespace BlazorAppDay02.Components
 
         [Inject]
         private IProductRepository? ProductRepository { get; set; }
-        
+
         [Inject]
         private ILocalStorageService? LocalStorageService { get; set; }
 
@@ -31,44 +31,5 @@ namespace BlazorAppDay02.Components
             await base.OnInitializedAsync();
         }
 
-        private async Task AddToCart()
-        {
-            var cart = await LocalStorageService.GetItem<List<CartProduct>>("cart");
-            if (cart == null)
-            {
-                cart = new List<CartProduct>();
-                cart.Add(new CartProduct
-                {
-                    Id = Product.Id,
-                    Name = Product.Name,
-                    OrderCount = 1,
-                    Price = Product.Price,
-                    Image = Product.Image,
-                    Category = Product.CategoryName
-                });
-            }else
-            {
-                var isExists = cart.Select(x => x.Id).Contains(Product.Id);
-                if (isExists)
-                {
-                    var product = cart.FirstOrDefault(x => x.Id == Product.Id);
-                    product.OrderCount++;
-
-                }else
-                {
-                    cart.Add(new CartProduct
-                    {
-                        Id = Product.Id,
-                        Name = Product.Name,
-                        OrderCount = 1,
-                        Price = Product.Price,
-                        Image = Product.Image,
-                        Category = Product.CategoryName
-                    });
-                }
-            }
-            await LocalStorageService.SetItem<List<CartProduct>>("cart",cart);
-            NavigationManager.NavigateTo("ShoppingCart");
-        }
     }
 }

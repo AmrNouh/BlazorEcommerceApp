@@ -1,15 +1,15 @@
 ﻿@page "/Products"
 
-<div class="col-lg-2 col-md-12 col-sm-12 bg-white pt-4">
+<div class="col-lg-2 col-md-12 col-sm-12 flex-grow-1 flex-shrink-1 bg-warning">
     <FilterPanel />
 </div>
 
 @if (Products is not null)
 {
-    <div class="col-lg-10 col-md-12 col-sm-12">
+    <div class="col-lg-10 col-md-12 col-sm-12 flex-grow-1 flex-shrink-0">
         <div class="pt-4 mb-2">
-            <span class="text-warning fw-bold h4">RESULTS</span>
-            <p class="text-white-50">Price and other details may vary based on product size and color.</p>
+            <span class="text-dark fw-bold h4">RESULTS</span>
+            <p class="text-black-50">Price and other details may vary based on product size and color.</p>
         </div>
         <div class="container-fluid">
             <div class="row justify-content-center flex-wrap">

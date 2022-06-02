@@ -4,6 +4,9 @@ html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
     height: 100%;
 }
+.gradient-custom {
+    background: linear-gradient(to right, rgba(106, 17, 203, 1), rgba(37, 117, 252, 1));
+}
 
 h1:focus {
     outline: none;

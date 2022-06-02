@@ -1,8 +1,9 @@
 ﻿@page "/Product/{id:int}"
+@inject IAlertService AlertService
 
 @if (Product is not null)
 {
-    <EditForm Model="Product" OnInvalidSubmit="UpdateProduct" class="card bg-white w-75 m-auto">
+    <EditForm Model="Product" OnInvalidSubmit="OnValidSubmit" class="card bg-white w-75 m-auto mt-4">
         <DataAnnotationsValidator></DataAnnotationsValidator>
         <ValidationSummary></ValidationSummary>
         <div class="input-group-sm mb-2">
@@ -24,20 +25,51 @@
             <label class="form-label">Category</label>
             <InputSelect @bind-Value="Product.CategoryId" class="form-select">
                 @foreach (var item in Categories)
-                   {
-                       <option value="@item.Id">@item.Name</option>
-                   }
-            </InputSelect>
-            <ValidationMessage For="()=>Product.CategoryId" class="text-danger"></ValidationMessage>
-        </div>
-        <div class="input-group-sm mb-2">
-            <label class="form-label">Description</label>
-            <InputTextArea @bind-Value="Product.Description" class="form-text form-control"></InputTextArea>
-        </div>
-        <input type="submit" value="Update" class="btn btn-success mt-3 w-25 d-block mx-auto">
+                {
+                <option value="@item.Id">@item.Name</option>
+                }
+        </InputSelect>
+        <ValidationMessage For="()=>Product.CategoryId" class="text-danger"></ValidationMessage>
+    </div>
+    <div class="input-group-sm mb-2">
+        <label class="form-label">Description</label>
+        <InputTextArea @bind-Value="Product.Description" class="form-text form-control"></InputTextArea>
+    </div>
+    <div class="btn-group">
+        <button disabled="@loading" class="btn btn-primary">
+            @if (loading)
+                {
+                    <span class="spinner-border spinner-border-sm mr-1"></span>
+                }
+                Save
+            </button>
+            <a href="Products" class="text-decoration-none btn btn-outline-secondary">Back to Shop</a>
+    </div>
+
     </EditForm>
 }
 else
 {
     <p class="alert alert-danger" role="alert">Can't Load Product</p>
+}
+
+@code
+{
+    private bool loading;
+    private async void OnValidSubmit()
+    {
+        loading = true;
+        try
+        {
+            await ProductRepository.UpdateAsync(Id, new Product { Id = Product.Id, Name = Product.Name, CategoryId = Product.CategoryId, Description = Product.Description, Price = Product.Price, Image = Product.Image });
+            AlertService.Success("Update successful", keepAfterRouteChange: true);
+            NavigationManager.NavigateTo("users");
+        }
+        catch (Exception ex)
+        {
+            AlertService.Error(ex.Message);
+            loading = false;
+            StateHasChanged();
+        }
+    }
 }

@@ -62,3 +62,24 @@
         </div>
     </div>
 </section>
+
+
+@code {
+    private async void OnValidSubmit()
+    {
+        AlertService.Clear();
+        loading = true;
+        try
+        {
+            await AccountService.Register(model);
+            AlertService.Success("Registration successful", keepAfterRouteChange: true);
+            NavigationManager.NavigateTo("login");
+        }
+        catch (Exception ex)
+        {
+            AlertService.Error(ex.Message);
+            loading = false;
+            StateHasChanged();
+        }
+    }
+}

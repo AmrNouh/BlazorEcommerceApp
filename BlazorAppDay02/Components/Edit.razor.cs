@@ -18,7 +18,7 @@ namespace BlazorAppDay02.Components
         [Inject]
         private ICategoryRepository? CategoryRepository { get; set; }
         [Inject]
-        public NavigationManager NavManager { get; set; }
+        public NavigationManager NavigationManager { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
@@ -28,12 +28,6 @@ namespace BlazorAppDay02.Components
                 Categories = await CategoryRepository.GetAllAsync();
             }
             await base.OnInitializedAsync();
-        }
-
-        public async void UpdateProduct()
-        {
-            await ProductRepository.UpdateAsync(Id, new Product { Id = Product.Id, Name = Product.Name, CategoryId = Product.CategoryId, Description = Product.Description, Price = Product.Price, Image = Product.Image});
-            NavManager.NavigateTo("Products");
         }
     }
 }

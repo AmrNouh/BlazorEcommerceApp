@@ -50,7 +50,7 @@ namespace WesiteWebApi.Controllers
 
         // PUT: api/Products/5
         [HttpPut("{id}")]
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         public async Task<IActionResult> PutProduct(int id, Product product)
         {
             if (ModelState.IsValid)
@@ -78,8 +78,8 @@ namespace WesiteWebApi.Controllers
         }
 
         // POST: api/Products
+        //[Authorize(Roles = "Admin")]
         [HttpPost]
-        [Authorize(Roles = "Admin")]
         public async Task<ActionResult<Product>> PostProduct(Product product)
         {
             if (ModelState.IsValid)
@@ -88,7 +88,7 @@ namespace WesiteWebApi.Controllers
                 return affectedRow switch
                 {
                     0 => BadRequest("Error"),
-                    _ => CreatedAtAction("GetCategory", new { id = product.Id }, product),
+                    _ => CreatedAtAction("GetProduct", new { id = product.Id }, product),
 
                 };
             }
@@ -100,7 +100,7 @@ namespace WesiteWebApi.Controllers
 
         // DELETE: api/Products/5
         [HttpDelete("{id}")]
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteProduct(int id)
         {
             int affectedRow = await _productRepository.DeleteAsync(id);
