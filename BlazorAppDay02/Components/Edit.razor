@@ -36,7 +36,7 @@
         <InputTextArea @bind-Value="Product.Description" class="form-text form-control"></InputTextArea>
     </div>
     <div class="btn-group">
-        <button disabled="@loading" class="btn btn-primary">
+        <button disabled="@loading" type="submit" class="btn btn-primary">
             @if (loading)
                 {
                     <span class="spinner-border spinner-border-sm mr-1"></span>
@@ -63,7 +63,7 @@ else
         {
             await ProductRepository.UpdateAsync(Id, new Product { Id = Product.Id, Name = Product.Name, CategoryId = Product.CategoryId, Description = Product.Description, Price = Product.Price, Image = Product.Image });
             AlertService.Success("Update successful", keepAfterRouteChange: true);
-            NavigationManager.NavigateTo("users");
+            NavigationManager.NavigateTo("Products");
         }
         catch (Exception ex)
         {

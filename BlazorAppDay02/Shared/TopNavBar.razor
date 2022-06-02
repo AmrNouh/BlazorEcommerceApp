@@ -1,6 +1,5 @@
 ﻿@using Website.Shared.Models
 @inject ILocalStorageService LocalStorageService
-@inject IAccountRepository AccountService
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark" style="height:60px">
     <div class="container-fluid">
@@ -69,7 +68,7 @@
 
     protected async override Task OnInitializedAsync()
     {
-        User = AccountService.User;
+        User = await LocalStorageService.GetItem<User>("user");
         var cart = await LocalStorageService.GetItem<List<CartProduct>>("cart");
         Count = cart is null ? 0 : cart.Count;
         await base.OnInitializedAsync();

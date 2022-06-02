@@ -15,7 +15,7 @@ namespace BlazorAppDay02.Components
         [Inject]
         private ICategoryRepository? CategoryRepository { get; set; }
         [Inject]
-        public NavigationManager NavManager { get; set; }
+        public NavigationManager NavigationManager { get; set; }
 
         protected override async Task OnInitializedAsync()
         {

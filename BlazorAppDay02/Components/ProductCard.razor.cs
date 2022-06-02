@@ -16,10 +16,19 @@ namespace BlazorAppDay02.Components
         [Inject]
         private IProductRepository? ProductRepository { get; set; }
 
+        private User user;
+
         private async void DeleteProduct()
         {
             await ProductRepository.DeleteAsync(Product.Id);
             await OnProductDeleted.InvokeAsync(Product.Id);
+        }
+
+
+        protected async override Task OnInitializedAsync()
+        {
+            user = await _localStorageService.GetItem<User>("user");
+            await base.OnInitializedAsync();
         }
     }
 }

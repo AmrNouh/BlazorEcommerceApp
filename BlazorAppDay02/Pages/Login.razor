@@ -73,8 +73,9 @@
             {
                 hasErrors = true;
                 StateHasChanged();
-                NavigationManager.NavigateTo("login",true);
+                NavigationManager.NavigateTo("login");
             }
+            NavigationManager.NavigateTo("Products");
             await OnUserLogin.InvokeAsync(AccountService.User);
         }
         catch (Exception ex)
