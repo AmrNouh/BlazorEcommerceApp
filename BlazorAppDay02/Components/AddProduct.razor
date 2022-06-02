@@ -3,7 +3,7 @@
 
 @if (Product is not null)
 {
-    <EditForm Model="Product" OnInvalidSubmit="OnValidSubmit" class="card bg-white w-75 m-auto mt-4">
+    <EditForm Model="Product" OnValidSubmit="OnValidSubmit" class="card bg-white w-75 m-auto mt-4">
         <DataAnnotationsValidator></DataAnnotationsValidator>
         <ValidationSummary></ValidationSummary>
         <div class="input-group-sm mb-2">

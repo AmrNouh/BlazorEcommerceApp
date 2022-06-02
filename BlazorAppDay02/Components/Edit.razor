@@ -3,7 +3,7 @@
 
 @if (Product is not null)
 {
-    <EditForm Model="Product" OnInvalidSubmit="OnValidSubmit" class="card bg-white w-75 m-auto mt-4">
+    <EditForm Model="Product" OnValidSubmit="OnValidSubmit" class="card bg-white w-75 m-auto mt-4">
         <DataAnnotationsValidator></DataAnnotationsValidator>
         <ValidationSummary></ValidationSummary>
         <div class="input-group-sm mb-2">
@@ -36,17 +36,11 @@
         <InputTextArea @bind-Value="Product.Description" class="form-text form-control"></InputTextArea>
     </div>
     <div class="btn-group">
-        <button disabled="@loading" type="submit" class="btn btn-primary">
-            @if (loading)
-                {
-                    <span class="spinner-border spinner-border-sm mr-1"></span>
-                }
-                Save
-            </button>
-            <a href="Products" class="text-decoration-none btn btn-outline-secondary">Back to Shop</a>
+        <input type="submit" value="Update" class="btn btn-success">
+        <a href="Products" class="text-decoration-none btn btn-outline-secondary">Back to Shop</a>
     </div>
 
-    </EditForm>
+</EditForm>
 }
 else
 {
